@@ -1,17 +1,18 @@
 import axios from "axios"
 import React, { useState, useEffect } from "react"
-import { Card } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import CloseButton from "react-bootstrap/CloseButton"
+import Form from "react-bootstrap/Form"
 import Spinner from "react-bootstrap/Spinner"
 import Post from "../components/Post"
 
 const Posts = () => {
+    const [searchValue, setSearchValue] = useState("")
     const [posts, setPosts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
     const getPostsList = async () => {
         setIsLoading(true)
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts?limit=5")
+        const response = await axios.get("https://jsonplaceholder.typicode.com/posts")
         setPosts(response.data)
         setIsLoading(false)
     }
@@ -20,13 +21,36 @@ const Posts = () => {
         getPostsList()
     }, [])
 
+    // useEffect(() => {
+    //     posts.sort()
+    //     // const filteredPosts = posts.filter((post) => post.title === searchValue)
+    //     // console.log(filteredPosts, posts[0]?.title)
+    // }, [searchValue])
+
     return (
         <>
+            <div className='mb-4'>
+                <Form.Control
+                    type='input'
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    placeholder='Поиск по постам..'
+                />
+                <CloseButton onClick={() => setSearchValue("")} />
+            </div>
             {!isLoading && (
                 <div>
-                    {posts.map((post) => (
-                        <Post key={post.id} post={post} />
-                    ))}
+                    {posts
+                        .filter((post) => {
+                            if (searchValue === "") {
+                                return post
+                            } else if (post.title.toLowerCase().includes(searchValue.toLowerCase())) {
+                                return post
+                            }
+                        })
+                        .map((post) => (
+                            <Post key={post.id} post={post} />
+                        ))}
                 </div>
             )}
             {isLoading && (

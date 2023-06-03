@@ -26,8 +26,8 @@ const Post = ({ post }) => {
     }
 
     return (
-        <Card key={post.id} className='mb-3 py-2 px-4'>
-            <Link to='/user'>
+        <Card className='mb-3 py-2 px-4'>
+            <Link to={`user/${post.userId}`}>
                 <Card.Img
                     style={{ width: "50px" }}
                     variant='left'
@@ -40,11 +40,19 @@ const Post = ({ post }) => {
                 <Button variant={buttonVariant} onClick={() => getComments()}>
                     Комментарии
                 </Button>
-                {showComments && comments.map((comment) => <Comment key={comment.id} comment={comment} />)}
+                {showComments && (
+                    <div className='mt-2'>
+                        {comments.map((comment) => (
+                            <Comment key={comment.id} comment={comment} />
+                        ))}
+                    </div>
+                )}
                 {isLoading && (
-                    <Spinner animation='border' role='status'>
-                        <span className='visually-hidden'>Loading...</span>
-                    </Spinner>
+                    <div className='mt-2'>
+                        <Spinner animation='border' role='status'>
+                            <span className='visually-hidden'>Loading...</span>
+                        </Spinner>
+                    </div>
                 )}
             </Card.Body>
         </Card>
