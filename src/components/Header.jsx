@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <>
-            <Navbar bg='dark' className='mb-4'>
+            <Navbar sticky='top' bg='dark' className='mb-4'>
                 <Container className='py-2'>
                     <Link className='btn' style={{ color: "#fff" }} to='/posts'>
                         MantraPosts

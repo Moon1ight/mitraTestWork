@@ -8,33 +8,28 @@ const Sidebar = ({ show, setShow }) => {
 
     return (
         <Offcanvas show={show} onHide={handleClose}>
-            <Offcanvas.Header closeButton>
-                {/* <div>
-                    <Image
-                        src='https://www.lenbaget.ru/wp-content/uploads/2021/11/2345-1000x830-1.jpg'
-                        roundedCircle
-                        fluid
-                        className='w-50'
-                    />
-                </div> */}
+            <Offcanvas.Header closeButton className='border-bottom'>
+                <Image
+                    src='https://www.lenbaget.ru/wp-content/uploads/2021/11/2345-1000x830-1.jpg'
+                    roundedCircle
+                    fluid
+                    style={{ width: "30px" }}
+                />
                 <Offcanvas.Title>Евгений</Offcanvas.Title>
-                <div>huredmoon@gmail.com</div>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                <nav bg='dark' expand='lg'>
-                    <ul>
-                        <li>
-                            <Link to='/posts' onClick={() => handleClose()}>
-                                Список постов
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/about' onClick={() => handleClose()}>
-                                Обо мне
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
+                <p>Ваша почта: huredmoon@gmail.com</p>
+
+                <div className='mb-2'>
+                    <Link className='btn btn-light border w-100' variant='primary' to='/posts' onClick={() => handleClose()}>
+                        Список постов
+                    </Link>
+                </div>
+                <div>
+                    <Link className='btn btn-light border w-100' to='/about' onClick={() => handleClose()}>
+                        Обо мне
+                    </Link>
+                </div>
             </Offcanvas.Body>
         </Offcanvas>
     )

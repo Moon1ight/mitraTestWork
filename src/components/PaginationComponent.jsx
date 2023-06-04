@@ -16,7 +16,7 @@ const PaginationComponent = ({ postsPerPage, totalPosts, currentPage, setCurrent
     }
 
     return (
-        <Pagination className='flex-wrap'>
+        <Pagination className='flex-wrap justify-content-end'>
             <Pagination.Prev disabled={currentPage < 2} onClick={() => setCurrentPage((prev) => prev - 1)} />
             {pageNumbers}
             <Pagination.Next disabled={currentPage >= totalPosts / postsPerPage} onClick={() => setCurrentPage((prev) => prev + 1)} />

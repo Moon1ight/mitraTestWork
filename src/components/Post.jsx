@@ -10,16 +10,23 @@ const Post = ({ post }) => {
     const [comments, setComments] = useState([])
     const [showComments, setShowComments] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState("")
 
     const buttonVariant = showComments ? "secondary" : "primary"
 
     const getComments = async () => {
         if (!showComments) {
-            setIsLoading(true)
-            const response = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${post.id}`)
-            setComments(response.data)
-            setIsLoading(false)
-            setShowComments((prev) => !prev)
+            try {
+                setError("")
+                setIsLoading(true)
+                const response = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${post.id}`)
+                setComments(response.data)
+                setIsLoading(false)
+                setShowComments((prev) => !prev)
+            } catch (e) {
+                setIsLoading(false)
+                setError(e.message)
+            }
         } else {
             setShowComments((prev) => !prev)
         }
@@ -47,6 +54,7 @@ const Post = ({ post }) => {
                 <Button variant={buttonVariant} onClick={() => getComments()}>
                     Комментарии
                 </Button>
+                {error && <h5 className='mt-2'>{error}</h5>}
                 {showComments && (
                     <div className='mt-2'>
                         {comments?.map((comment) => (

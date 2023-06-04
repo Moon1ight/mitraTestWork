@@ -8,33 +8,31 @@ import InputGroup from "react-bootstrap/InputGroup"
 
 const SearchBar = ({ searchValue, setSearchValue, sortHandler }) => {
     return (
-        <Row className='mb-4 align-items-center'>
-            <Col xs={9} className='flex'>
-                <InputGroup>
-                    <Form.Control
-                        type='input'
-                        value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
-                        placeholder='Поиск по постам..'
-                    />
-                    <InputGroup.Text>
-                        <CloseButton onClick={() => setSearchValue("")} />
-                    </InputGroup.Text>
-                </InputGroup>
-                {/* <Form.Control
-                    className='mb-2'
-                    type='input'
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    placeholder='Поиск по постам..'
-                />
-                <CloseButton className='mr-2' onClick={() => setSearchValue("")} /> */}
-            </Col>
-            <Col xs='auto'>
-                <Button onClick={() => sortHandler()}>Заголовок</Button>
-            </Col>
-            {/* <Col xs='auto' style={{ textAlign: "right" }}></Col> */}
-        </Row>
+        <>
+            <Row className='mb-2'>
+                <Col md={12} className='flex'>
+                    <InputGroup>
+                        <Form.Control
+                            type='input'
+                            value={searchValue}
+                            onChange={(e) => setSearchValue(e.target.value)}
+                            placeholder='Поиск по постам..'
+                        />
+                        <InputGroup.Text>
+                            <CloseButton onClick={() => setSearchValue("")} />
+                        </InputGroup.Text>
+                    </InputGroup>
+                </Col>
+            </Row>
+            <Row className='mb-4'>
+                <Col xs='12'>
+                    <span className='me-2'>Сортировка:</span>
+                    <Button className='btn-light border' onClick={() => sortHandler()}>
+                        По заголовкам
+                    </Button>
+                </Col>
+            </Row>
+        </>
     )
 }
 
