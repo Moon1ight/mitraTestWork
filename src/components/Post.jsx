@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import axios from "axios"
 import { Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
@@ -26,23 +26,30 @@ const Post = ({ post }) => {
     }
 
     return (
-        <Card className='mb-3 py-2 px-4'>
-            <Link to={`user/${post.userId}`}>
-                <Card.Img
-                    style={{ width: "50px" }}
-                    variant='left'
-                    src='https://www.lenbaget.ru/wp-content/uploads/2021/11/2345-1000x830-1.jpg'
-                />
-            </Link>
-            <Card.Body className='px-0'>
+        <Card className='mb-3 py-0 '>
+            <Card.Header className='justify-content-start align-items-center' style={{ display: "flex" }}>
+                <div style={{ marginRight: "20px" }}>
+                    <Link to={`users/${post.userId}`}>
+                        <Card.Img
+                            style={{ width: "50px" }}
+                            variant='left'
+                            src='https://www.lenbaget.ru/wp-content/uploads/2021/11/2345-1000x830-1.jpg'
+                            className='rounded-circle'
+                        />
+                    </Link>
+                </div>
                 <Card.Title>{post.title}</Card.Title>
+            </Card.Header>
+            <Card.Body>
                 <Card.Text>{post.body}</Card.Text>
+            </Card.Body>
+            <Card.Footer>
                 <Button variant={buttonVariant} onClick={() => getComments()}>
                     Комментарии
                 </Button>
                 {showComments && (
                     <div className='mt-2'>
-                        {comments.map((comment) => (
+                        {comments?.map((comment) => (
                             <Comment key={comment.id} comment={comment} />
                         ))}
                     </div>
@@ -54,7 +61,7 @@ const Post = ({ post }) => {
                         </Spinner>
                     </div>
                 )}
-            </Card.Body>
+            </Card.Footer>
         </Card>
     )
 }
